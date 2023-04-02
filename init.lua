@@ -7,6 +7,11 @@ function map(mode, lhs, rhs, opts)
 	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+-- Global configs
+
+-- Changing this for nvim-tree(file explorer)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 local set = vim.opt
 
@@ -17,6 +22,7 @@ set.tabstop = 4
 set.softtabstop = 0
 set.expandtab = false
 set.swapfile = false
+set.termguicolors = true -- for nvim-tree(file explorer)
 
 -- Vim keymaps
 vim.g.mapleader = " "
@@ -31,6 +37,13 @@ map('n', 'K', ':m .-2<CR>==')
 map('n', 'J', ':m .+1<CR>==') 
 map('v', 'K', ':m \'<-2<CR>gv=gv')
 map('v', 'J', ':m \'>+1<CR>gv=gv')
+
+-- Nvim tree keymaps
+map('n', 'tt', ':NvimTreeToggle<CR>')
+map('n', 'tf', ':NvimTreeFocus<CR>')
+map('n', 'TF', ':NvimTreeFindFile<CR>')
+map('n', 'tc', ':NvimTreeCollapse<CR>')
+
 
 -- Language specific keymap
 
@@ -63,6 +76,18 @@ return require('packer').startup(function(use)
 		'nvim-telescope/telescope.nvim', tag = '0.1.1',
 		requires = {{'nvim-lua/plenary.nvim'}}
 	}
+	
 	-- Colorscheme
 	use 'Mofiqul/dracula.nvim'
+
+	-- File explorer
+	use {
+		'nvim-tree/nvim-tree.lua',
+		requires = {
+			'nvim-tree/nvim-web-devicons', -- optional
+		},
+		config = function()
+			require("nvim-tree").setup {}
+		end
+	}
 end)
