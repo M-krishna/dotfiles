@@ -22,6 +22,7 @@ set.tabstop = 4
 set.softtabstop = 0
 set.expandtab = false
 set.swapfile = false
+set.cursorline = true
 set.termguicolors = true -- for nvim-tree(file explorer)
 
 -- Vim keymaps
@@ -43,6 +44,13 @@ map('n', 'tt', ':NvimTreeToggle<CR>')
 map('n', 'tf', ':NvimTreeFocus<CR>')
 map('n', 'TF', ':NvimTreeFindFile<CR>')
 map('n', 'tc', ':NvimTreeCollapse<CR>')
+
+-- Telescope keymaps
+local builtin = require('telescope.builtin')
+map('n', '<leader>ff', ':Telescope find_files<CR>')
+map('n', '<leader>fg', ':Telescope live_grep<CR>')
+map('n', '<leader>fb', ':Telescope buffers<CR>')
+map('n', '<leader>fh', ':Telescope help_tags<CR>')
 
 
 -- Language specific keymap
@@ -90,4 +98,18 @@ return require('packer').startup(function(use)
 			require("nvim-tree").setup {}
 		end
 	}
+
+
+	-- treesitter
+	use {
+		'nvim-treesitter/nvim-treesitter',
+		run = function()
+			local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+			ts_update()
+		end,
+	}
 end)
+
+-- NOTE:
+-- After install telescope, run :checkhealth telescope to see what are all the missing
+-- things and install it
