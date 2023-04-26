@@ -45,6 +45,17 @@ return require('packer').startup(function(use)
 			ts_update()
 		end,
 	}
+
+	-- Markdown preview
+	-- Do the following steps to install this properly
+	-- For mac:
+	-- cd ~/.local/share/nvim/site/pack/packer/start/
+	-- git clone https://github.com/iamcco/markdown-preview.nvim.git
+	-- cd markdown-preview.nvim
+	-- yarn install
+	-- yarn build
+	-- Open nvim and run :PackerInstall or :PackerSync
+	use {'iamcco/markdown-preview.nvim'}
 end)
 
 -- NOTE:
