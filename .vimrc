@@ -8,7 +8,7 @@ syntax enable
 filetype plugin on
 
 " Set colorscheme
-colorscheme murphy
+colorscheme desert
 
 " Set relative line number
 " set relativenumber
@@ -43,6 +43,7 @@ set wildmenu
 " or we can do :b<space><substring of the filename>
 
 
+" the below lines are for installing vim-plug and put it inside /.vim/autoload
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
