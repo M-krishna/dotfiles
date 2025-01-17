@@ -1,63 +1,6 @@
-;; ########### START OF set package archives ############
-
-;; Add MELPA to the list of repositories
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
-
-;; ########### END of Set package archives ############
-
-
-;; Installing "use-package" package if not installed already
-(require 'package)
-(setq package-enable-at-startup nil)
-(package-initialize)
-
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package)
-  )
-
-(eval-when-compile
-  (require 'use-package))
-;; End of installing "use-package" package
-
-
-;; ################## START OF PACKAGE INSTALLATION AND CONFIGURATION ################
-
-;; Provides completion for many languages
-(use-package company
-  :ensure t
-  :config
-  (global-company-mode))
-
-
-;; Enable LSP support for many languages
-(use-package lsp-mode
-  :ensure t
-  :commands lsp
-  :hook ((python-mode . lsp)
-	 (javascript-mode . lsp)
-	 (typescript-mode . lsp)
-	 (json-mode . lsp)
-	 (markdown-mode . lsp)
-	 (yaml-mode . lsp)
-	 ;; add more languages here
-	 )
-  :config
-  (setq lsp-prefer-flymake nil))
-
-;; Use lsp-ui for better integration
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-
-;; ################## END OF PACKAGE INSTALLATION AND CONFIGURATION #########
-
-; Custom file which emacs can edit
+;; Custom file which emacs can edit
 (setq custom-file "~/.emacs.d/emacs.custom.el")
 
-; To enable it, remove -1
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -73,10 +16,54 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ; The below is for font size
-(set-face-attribute 'default nil :family "Monaco" :height 170)
+(set-face-attribute 'default nil :family "Monaco" :height 150)
 
-(global-font-lock-mode 1)
+;; Installing melpa and melpa stable to our package
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
 
-; This is for evil mode => Vim motions
+;; Using the dashboard package
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+
+;; Using nerd-icons package
+(require 'nerd-icons)
+
+;; Using projectile for project management
+(require 'projectile)
+(projectile-mode 1) ; enable projectile mode globally
+(setq projectile-completion-system 'ivy) ;; install package ivy for this to work
+
+;; Use ivy for completion (VS Code-like)
+(ivy-mode 1)
+(require 'counsel)
+(counsel-mode 1)
+
+;; Enable caching for better performance
+(setq projectile-enable-caching t)
+
+;; Auto-discover projects when Emacs starts
+(setq projectile-auto-discover t)
+
+;; Using centaur-tabs
+(require 'centaur-tabs)
+(centaur-tabs-mode t)
+(centaur-tabs-headline-match)
+(setq centaur-tabs-set-bar 'under)
+(setq centaur-tabs-style "bar")
+(setq centaur-tabs-height 32)
+(centaur-tabs-change-fonts "Monaco" 160)
+(setq centaur-tabs-icon-type 'nerd-icons)  ; or 'all-the-icons
+(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-set-modified-marker t)
+
+;; Using emacstreemacs
+(require 'treemacs)
+(require 'treemacs-evil) ;; if you're using evil mode (ie. vim)
+(require 'treemacs-projectile) ;; if you're using projectile for project management
+(setq treemacs-is-never-other-window t)
+
 (require 'evil)
 (evil-mode 1)
