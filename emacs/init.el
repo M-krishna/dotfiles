@@ -67,3 +67,17 @@
 
 (require 'evil)
 (evil-mode 1)
+
+;; Remove default Space behavior in evil normal state
+(define-key evil-normal-state-map (kbd "SPC") nil)
+(define-key evil-motion-state-map (kbd "SPC") nil)
+
+;; Create space-prefixed keybindings
+(evil-define-key 'normal 'global
+  (kbd "SPC :") 'execute-extended-command
+  (kbd "SPC ;") 'eval-expression)
+
+;; Optional: Add these bindings to visual state as well
+(evil-define-key 'visual 'global
+  (kbd "SPC :") 'execute-extended-command
+  (kbd "SPC ;") 'eval-expression)
